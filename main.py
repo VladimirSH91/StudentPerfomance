@@ -4,12 +4,12 @@ from collections import defaultdict
 import tabulate
 
 
-def print_report(report_dict: dict) -> None:
+def grade_report(report_dict: dict) -> None:
     rows = [(student, avg) for student, avg in report_dict.items()]
     print(tabulate.tabulate(rows, headers=['Student', 'Average Grade'], tablefmt="pipe"))
 
 
-def open_file(files: str) -> dict:
+def get_student_grades(files: str) -> dict:
     student_dict = defaultdict(list)
     for file in files:
         file = csv.DictReader(file)
@@ -28,16 +28,18 @@ def average_grade(student_dict: dict) -> dict:
     return sorted_dict
 
 
-parser = argparse.ArgumentParser(description='student performance')
+parser = argparse.ArgumentParser(description='student performance', exit_on_error=False)
 parser.add_argument('--files', dest='files', nargs='+', type=argparse.FileType(mode='r', encoding='utf-8'))
 parser.add_argument('--report', dest='report')
 
-args = parser.parse_args()
-student_grades = open_file(files=args.files)
-student_report = average_grade(student_dict=student_grades)
 
-if args.report == 'student-performance':
-    print_report(report_dict=student_report)
+try:
+    args = parser.parse_args()
+    student_grades = get_student_grades(files=args.files)
+    student_report = average_grade(student_dict=student_grades)
 
+    if args.report == 'student-performance':
+        grade_report(report_dict=student_report)
 
-
+except argparse.ArgumentError:
+    print('Файл не найден')
