@@ -1,8 +1,36 @@
-import pytest
+from io import StringIO
 import main
 
-def test_get_student_grades():
-    pass
+def test_get_student_grades1():
+    data1 = StringIO("student_name,grade,\nСтудент1,5\nСтудент2,4\n")
+    data2 = StringIO("student_name,grade\nСтудент1,3\nСтудент3,3\n")
+    result = main.get_student_grades([data1, data2])
+    expected = {
+        'Студент1': [5, 3],
+        'Студент2': [4],
+        'Студент3': [3]
+    }
+    assert result == expected
+
+def test_get_student_grades2():
+    data1 = StringIO("student_name,subject,grade,\nСтудент1,химия,5\nСтудент2,география,4\n")
+    data2 = StringIO("student_name,grade\nСтудент1,3\nСтудент3,3\n")
+    result = main.get_student_grades([data1, data2])
+    expected = {
+        'Студент1': [5, 3],
+        'Студент2': [4],
+        'Студент3': [3]
+    }
+    assert result == expected
+
+def test_get_student_grades3():
+    data1 = StringIO("student_name,grade,\nСтудент1,5\nСтудент2,4\n")
+    result = main.get_student_grades([data1])
+    expected = {
+        'Студент1': [5],
+        'Студент2': [4],
+    }
+    assert result == expected
 
 def test_average_grade():
     student_dict = {
