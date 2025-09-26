@@ -28,18 +28,23 @@ def average_grade(student_dict: dict) -> dict:
     return sorted_dict
 
 
-parser = argparse.ArgumentParser(description='student performance', exit_on_error=False)
-parser.add_argument('--files', dest='files', nargs='+', type=argparse.FileType(mode='r', encoding='utf-8'))
-parser.add_argument('--report', dest='report')
+def main():
+
+    parser = argparse.ArgumentParser(description='student performance', exit_on_error=False)
+    parser.add_argument('--files', dest='files', nargs='+', type=argparse.FileType(mode='r', encoding='utf-8'))
+    parser.add_argument('--report', dest='report')
+
+    try:
+        args = parser.parse_args()
+        student_grades = get_student_grades(files=args.files)
+        student_report = average_grade(student_dict=student_grades)
+
+        if args.report == 'student-performance':
+            grade_report(report_dict=student_report)
+
+    except argparse.ArgumentError:
+        print('Файл не найден')
 
 
-try:
-    args = parser.parse_args()
-    student_grades = get_student_grades(files=args.files)
-    student_report = average_grade(student_dict=student_grades)
-
-    if args.report == 'student-performance':
-        grade_report(report_dict=student_report)
-
-except argparse.ArgumentError:
-    print('Файл не найден')
+if __name__ == '__main__':
+    main()
