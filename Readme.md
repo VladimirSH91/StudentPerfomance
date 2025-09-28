@@ -7,10 +7,10 @@ python main.py --files students1.csv students2.csv --report student-performance
 ## Примеры работы скрипта
 
 Вывод при парсинге студентов из двух файлов
-![Работа с двумя файлами](Screenshot_1.png)
+![Работа с двумя файлами](images/Screenshot_1.png)
 
 При одном файле
-![Работа с одним файлом](Screenshot_2.png)
+![Работа с одним файлом](images/Screenshot_2.png)
 
 В случае если название файла не корректно
-![Ошибка при несуществующем файле](Screenshot_3.png)
+![Ошибка при несуществующем файле](images/Screenshot_3.png)
