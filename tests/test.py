@@ -1,5 +1,6 @@
 from io import StringIO
-import main
+from src import main
+
 
 def test_get_student_grades1():
     data1 = StringIO("student_name,grade,\nСтудент1,5\nСтудент2,4\n")
