@@ -1,7 +1,7 @@
 from abc import ABC
 
 class Report(ABC):
-    def __init__(self, report_name: str = "Generic Report"):
+    def __init__(self, report_name: str):
         self.report_name = report_name
 
 
